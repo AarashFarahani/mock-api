@@ -1,6 +1,7 @@
 package com.mastercard.mockapi.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mastercard.mockapi.service.MonitoringService;
 import com.mastercard.mockapi.service.RequestProcessor;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class MockServlet extends HttpServlet {
     private final RequestProcessor requestProcessor;
+    private final MonitoringService monitoringService;
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +33,30 @@ public class MockServlet extends HttpServlet {
 
         var objectMapper= new ObjectMapper();
         var jsonString = objectMapper.writeValueAsString(response);
+
         out.print(jsonString);
+
+        var sb = new StringBuilder();
+        sb.append("Path: ").append(req.getServletPath()).append("\n");
+        sb.append("Method: ").append(req.getMethod()).append("\n");
+        sb.append(this.getBody(req)).append("\n");
+        sb.append(jsonString);
+        this.monitoringService.handleMessage(sb.toString());
+
         out.flush();
+    }
+
+    private String getBody(HttpServletRequest req) throws IOException {
+        var reader = req.getReader();
+        var sb = new StringBuilder();
+        try {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        } finally {
+            reader.close();
+            return sb.toString();
+        }
     }
 }
