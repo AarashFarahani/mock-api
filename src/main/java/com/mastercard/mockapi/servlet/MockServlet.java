@@ -20,8 +20,7 @@ public class MockServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Just for test");
-        log.info(req.getServletPath());
+        log.info(req.getRequestURI());
 
         var response = this.requestProcessor.process(req);
 
@@ -37,7 +36,7 @@ public class MockServlet extends HttpServlet {
         out.print(jsonString);
 
         var sb = new StringBuilder();
-        sb.append("Path: ").append(req.getServletPath()).append("\n");
+        sb.append("Path: ").append(req.getRequestURI()).append("\n");
         sb.append("Method: ").append(req.getMethod()).append("\n");
         sb.append(this.getBody(req)).append("\n");
         sb.append(jsonString);
