@@ -5,8 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Person {
+public class Result {
     private String id;
-    private String firstName;
-    private String lastName;
+    private int score;
 }

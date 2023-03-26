@@ -1,6 +1,6 @@
 package com.mastercard.mockapi.config;
 
-import com.mastercard.mockapi.service.MonitoringService;
+import com.mastercard.mockapi.utils.MonitoringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -11,7 +11,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
-    private final MonitoringService monitoringService;
+    private final MonitoringUtils monitoringService;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {

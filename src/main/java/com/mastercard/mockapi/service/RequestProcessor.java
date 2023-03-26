@@ -8,6 +8,6 @@ import java.util.UUID;
 @Service
 public class RequestProcessor {
     public Object process(Object request) {
-        return new Person(UUID.randomUUID().toString());
+        return new Person(UUID.randomUUID().toString(), "", "");
     }
 }

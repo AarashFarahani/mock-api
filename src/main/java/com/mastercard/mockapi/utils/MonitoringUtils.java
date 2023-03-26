@@ -1,4 +1,4 @@
-package com.mastercard.mockapi.service;
+package com.mastercard.mockapi.utils;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Log4j2
 @Service
-public class MonitoringService extends TextWebSocketHandler {
+public class MonitoringUtils extends TextWebSocketHandler {
     private List<WebSocketSession> sessions = new ArrayList<>();
 
     public void handleMessage(String message) throws IOException {

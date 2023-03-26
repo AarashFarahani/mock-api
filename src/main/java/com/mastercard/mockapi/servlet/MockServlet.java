@@ -1,7 +1,7 @@
 package com.mastercard.mockapi.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mastercard.mockapi.service.MonitoringService;
+import com.mastercard.mockapi.utils.MonitoringUtils;
 import com.mastercard.mockapi.service.RequestProcessor;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +16,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class MockServlet extends HttpServlet {
     private final RequestProcessor requestProcessor;
-    private final MonitoringService monitoringService;
+    private final MonitoringUtils monitoringService;
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
