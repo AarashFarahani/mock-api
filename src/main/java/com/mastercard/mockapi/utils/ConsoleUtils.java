@@ -13,7 +13,7 @@ import java.util.List;
 
 @Log4j2
 @Service
-public class MonitoringUtils extends TextWebSocketHandler {
+public class ConsoleUtils extends TextWebSocketHandler {
     private List<WebSocketSession> sessions = new ArrayList<>();
 
     public void handleMessage(String message) throws IOException {

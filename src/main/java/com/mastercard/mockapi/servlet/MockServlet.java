@@ -1,7 +1,9 @@
 package com.mastercard.mockapi.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mastercard.mockapi.utils.MonitoringUtils;
+import com.mastercard.mockapi.model.HttpResponse;
+import com.mastercard.mockapi.service.ObjectGenerator;
+import com.mastercard.mockapi.utils.ConsoleUtils;
 import com.mastercard.mockapi.service.RequestProcessor;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -15,14 +17,22 @@ import java.io.IOException;
 @Log4j2
 @RequiredArgsConstructor
 public class MockServlet extends HttpServlet {
-    private final RequestProcessor requestProcessor;
-    private final MonitoringUtils monitoringService;
+    private final ObjectGenerator objectGenerator;
+    private final ConsoleUtils consoleUtils;
+    private final ObjectMapper objectMapper;
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info(req.getRequestURI());
-
-        var response = this.requestProcessor.process(req);
+        var path = req.getRequestURI();
+        var method = req.getMethod();
+        Object response = null;
+        try {
+            response = this.objectGenerator.generate(path, method);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            response = "Error";
+//            resp.setStatus();
+        }
 
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
@@ -30,17 +40,13 @@ public class MockServlet extends HttpServlet {
         var out = resp.getWriter();
 // Assuming your json object is **jsonObject**, perform the following, it will return your json object
 
-        var objectMapper= new ObjectMapper();
-        var jsonString = objectMapper.writeValueAsString(response);
+        var jsonString = this.objectMapper.writeValueAsString(response);
 
         out.print(jsonString);
 
-        var sb = new StringBuilder();
-        sb.append("Path: ").append(req.getRequestURI()).append("\n");
-        sb.append("Method: ").append(req.getMethod()).append("\n");
-        sb.append(this.getBody(req)).append("\n");
-        sb.append(jsonString);
-        this.monitoringService.handleMessage(sb.toString());
+        var httpResponse = new HttpResponse(path, method, this.getBody(req), jsonString);
+        jsonString = this.objectMapper.writeValueAsString(httpResponse);
+        this.consoleUtils.handleMessage(jsonString);
 
         out.flush();
     }

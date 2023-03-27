@@ -3,13 +3,14 @@ package com.mastercard.mockapi.service.generator;
 import com.mastercard.mockapi.service.MockGenerator;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.util.List;
 import java.util.Map;
 
 public class StringMockGenerator  extends MockGenerator {
-    public static final String NAME = "String";
+    public final static List<String> ACCEPTED_NAMES = List.of("String");
 
     protected StringMockGenerator() {
-        super(NAME);
+        super(ACCEPTED_NAMES);
     }
 
     private boolean isUpper(Map<String, Object> args) {

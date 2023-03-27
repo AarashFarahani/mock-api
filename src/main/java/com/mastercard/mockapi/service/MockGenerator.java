@@ -1,16 +1,17 @@
 package com.mastercard.mockapi.service;
 
+import java.util.List;
 import java.util.Map;
 
 public abstract class MockGenerator {
-    private String name;
+    private List<String> acceptedNames;
 
-    protected MockGenerator(String name) {
-        this.name = name;
+    protected MockGenerator(List<String> acceptedNames) {
+        this.acceptedNames = acceptedNames;
     }
 
-    protected String getName() {
-        return this.name;
+    protected boolean accept(String name) {
+        return this.acceptedNames.contains(name);
     }
 
     public abstract Object generate(Map<String, Object> args);

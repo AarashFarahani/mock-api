@@ -1,6 +1,7 @@
 package com.mastercard.mockapi.config;
 
-import com.mastercard.mockapi.utils.MonitoringUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mastercard.mockapi.utils.ConsoleUtils;
 import com.mastercard.mockapi.service.RequestProcessor;
 import com.mastercard.mockapi.servlet.MockServlet;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +13,13 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class ServletConfig {
     private final RequestProcessor requestProcessor;
-    private final MonitoringUtils monitoringService;
+    private final ConsoleUtils consoleUtils;
+    private final ObjectMapper objectMapper;
 
     @Bean
     public ServletRegistrationBean customServletBean() {
         ServletRegistrationBean bean = new ServletRegistrationBean(
-                new MockServlet(this.requestProcessor, this.monitoringService), "/mock/*");
+                new MockServlet(this.requestProcessor, this.consoleUtils, this.objectMapper), "/mock/*");
         return bean;
     }
 }

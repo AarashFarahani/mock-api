@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class IntegerMockGenerator extends MockGenerator {
-    public final static List<String> ACCEPTED_NAMES = List.of("int", "Integer");
+public class DoubleMockGenerator extends MockGenerator {
+    public final static List<String> ACCEPTED_NAMES = List.of("double", "Double");
 
-    public IntegerMockGenerator() {
+    public DoubleMockGenerator() {
         super(ACCEPTED_NAMES);
     }
 
@@ -26,7 +26,7 @@ public class IntegerMockGenerator extends MockGenerator {
         var min = this.min(args);
         var max = this.max(args);
         var random = new Random();
-        var result = min + random.nextInt(max - min + 1);
+        var result = min + random.nextDouble(max - min + 1);
         return result;
     }
 }

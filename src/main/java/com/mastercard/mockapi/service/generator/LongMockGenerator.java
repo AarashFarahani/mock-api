@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class IntegerMockGenerator extends MockGenerator {
-    public final static List<String> ACCEPTED_NAMES = List.of("int", "Integer");
+public class LongMockGenerator extends MockGenerator {
+    public final static List<String> ACCEPTED_NAMES = List.of("long", "Long");
 
-    public IntegerMockGenerator() {
+    public LongMockGenerator() {
         super(ACCEPTED_NAMES);
     }
 
@@ -18,7 +18,7 @@ public class IntegerMockGenerator extends MockGenerator {
     }
 
     private int max(Map<String, Object> args) {
-        return (int) args.getOrDefault("max", 1000);
+        return (int) args.getOrDefault("max", 10000);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class IntegerMockGenerator extends MockGenerator {
         var min = this.min(args);
         var max = this.max(args);
         var random = new Random();
-        var result = min + random.nextInt(max - min + 1);
+        var result = min + random.nextLong(max - min + 1);
         return result;
     }
 }
