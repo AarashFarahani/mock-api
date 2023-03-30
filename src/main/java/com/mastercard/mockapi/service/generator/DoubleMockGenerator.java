@@ -1,13 +1,15 @@
 package com.mastercard.mockapi.service.generator;
 
 import com.mastercard.mockapi.service.MockGenerator;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+@Component
 public class DoubleMockGenerator extends MockGenerator {
-    public final static List<String> ACCEPTED_NAMES = List.of("double", "Double");
+    private final static List<String> ACCEPTED_NAMES = List.of(double.class.getName(), Double.class.getName());
 
     public DoubleMockGenerator() {
         super(ACCEPTED_NAMES);

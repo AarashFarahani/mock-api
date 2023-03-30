@@ -1,0 +1,28 @@
+mock:
+  httpPatterns:
+    - path: "/person"
+      method: "get"
+#  requestType:
+      responseType: "com.mastercard.mockapi.model.Person"
+      fieldSchemas:
+        - name: id
+          schema:
+            uuid: true
+        - name: lastName
+          schema:
+            min: 5
+            max: 20
+        - name: course.score
+          schema:
+            min: 0
+            max: 20
+        - name: course.id
+          schema:
+            uuid: true
+        - name: school.name
+          schema:
+            min: 10
+            max: 50
+        - name: school.id
+          schema:
+            uuid: true

@@ -1,0 +1,7 @@
+mock:
+  httpPatterns:
+    - path: "/result"
+      method: "get"
+#  requestType:
+      responseType: "com.mastercard.mockapi.model.Result"
+#  private List<FieldSchema> fieldSchemas;

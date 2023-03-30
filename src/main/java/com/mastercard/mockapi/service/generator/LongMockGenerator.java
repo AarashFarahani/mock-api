@@ -1,13 +1,15 @@
 package com.mastercard.mockapi.service.generator;
 
 import com.mastercard.mockapi.service.MockGenerator;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+@Component
 public class LongMockGenerator extends MockGenerator {
-    public final static List<String> ACCEPTED_NAMES = List.of("long", "Long");
+    private final static List<String> ACCEPTED_NAMES = List.of(long.class.getName(), Long.class.getName());
 
     public LongMockGenerator() {
         super(ACCEPTED_NAMES);

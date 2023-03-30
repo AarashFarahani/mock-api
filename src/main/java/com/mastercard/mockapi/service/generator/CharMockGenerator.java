@@ -2,12 +2,14 @@ package com.mastercard.mockapi.service.generator;
 
 import com.mastercard.mockapi.service.MockGenerator;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class CharMockGenerator extends MockGenerator {
-    public final static List<String> ACCEPTED_NAMES = List.of("char", "Character");
+    private final static List<String> ACCEPTED_NAMES = List.of(char.class.getName(), Character.class.getName());
 
     public CharMockGenerator() {
         super(ACCEPTED_NAMES);
