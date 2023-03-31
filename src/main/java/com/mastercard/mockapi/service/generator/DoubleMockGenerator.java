@@ -1,34 +1,22 @@
 package com.mastercard.mockapi.service.generator;
 
-import com.mastercard.mockapi.service.MockGenerator;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 @Component
-public class DoubleMockGenerator extends MockGenerator {
+public class DoubleMockGenerator extends NumberGenerator<Double> {
     private final static List<String> ACCEPTED_NAMES = List.of(double.class.getName(), Double.class.getName());
 
     public DoubleMockGenerator() {
         super(ACCEPTED_NAMES);
     }
 
-    private int min(Map<String, Object> args) {
-        return (int) args.getOrDefault("min", -1000);
-    }
-
-    private int max(Map<String, Object> args) {
-        return (int) args.getOrDefault("max", 1000);
-    }
-
     @Override
     public Object generate(Map<String, Object> args) {
-        var min = this.min(args);
-        var max = this.max(args);
-        var random = new Random();
-        var result = min + random.nextDouble(max - min + 1);
-        return result;
+        var min = Double.valueOf(super.min(args, Double.MIN_VALUE).toString());
+        var max = Double.valueOf(super.max(args, Double.MAX_VALUE).toString());
+        return min + super.random.nextDouble(max - min + 1);
     }
 }

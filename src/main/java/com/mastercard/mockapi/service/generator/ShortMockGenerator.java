@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class IntegerMockGenerator extends NumberGenerator<Integer> {
-    private final static List<String> ACCEPTED_NAMES = List.of(int.class.getName(), Integer.class.getName());
+public class ShortMockGenerator extends NumberGenerator<Short> {
+    private final static List<String> ACCEPTED_NAMES = List.of(short.class.getName(), Short.class.getName());
 
-    public IntegerMockGenerator() {
+    public ShortMockGenerator() {
         super(ACCEPTED_NAMES);
     }
 
     @Override
     public Object generate(Map<String, Object> args) {
-        var min = (int) super.min(args, 0);
-        var max = (int) super.max(args, 10);
+        var min = (short) super.min(args, Short.MIN_VALUE);
+        var max = (short) super.max(args, Short.MAX_VALUE);
         return min + super.random.nextInt(max - min + 1);
     }
 }

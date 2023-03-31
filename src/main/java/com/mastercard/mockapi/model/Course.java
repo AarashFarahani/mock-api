@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class Course {
     private String id;
     private double price;
-    private double score;
+    private float score;
     private Status status;
 }

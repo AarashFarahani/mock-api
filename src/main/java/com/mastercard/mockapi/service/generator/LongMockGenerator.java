@@ -1,34 +1,22 @@
 package com.mastercard.mockapi.service.generator;
 
-import com.mastercard.mockapi.service.MockGenerator;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 @Component
-public class LongMockGenerator extends MockGenerator {
+public class LongMockGenerator extends NumberGenerator<Long> {
     private final static List<String> ACCEPTED_NAMES = List.of(long.class.getName(), Long.class.getName());
 
     public LongMockGenerator() {
         super(ACCEPTED_NAMES);
     }
 
-    private int min(Map<String, Object> args) {
-        return (int) args.getOrDefault("min", -1000);
-    }
-
-    private int max(Map<String, Object> args) {
-        return (int) args.getOrDefault("max", 10000);
-    }
-
     @Override
     public Object generate(Map<String, Object> args) {
-        var min = this.min(args);
-        var max = this.max(args);
-        var random = new Random();
-        var result = min + random.nextLong(max - min + 1);
-        return result;
+        var min = (long) super.min(args, 0L);
+        var max = (long) super.max(args, 10000000L);
+        return min + super.random.nextLong(max - min + 1);
     }
 }

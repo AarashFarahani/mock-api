@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 //@Configuration
 @Component
-@PropertySource(value = "classpath:patterns/personMock.yml", factory = YamlPropertySourceFactory.class)
+@PropertySource(value = "classpath:patterns/studentMock.yml", factory = YamlPropertySourceFactory.class)
 //@PropertySource(value = "classpath:patterns", factory = PatternPropertySourceFactory.class)
 @ConfigurationProperties("mock")
 public class MockPattern {

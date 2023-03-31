@@ -1,13 +1,13 @@
 mock:
   httpPatterns:
-    - path: "/person"
+    - path: "/student"
       method: "get"
 #  requestType:
-      responseType: "com.mastercard.mockapi.model.Person"
+      responseType: "com.mastercard.mockapi.model.Student"
       fieldSchemas:
         - name: id
           schema:
-            uuid: true
+            min: 1
         - name: lastName
           schema:
             min: 5
