@@ -1,0 +1,6 @@
+mock:
+  path: "/person"
+  method: "get"
+  #  requestType:
+  responseType: "org.apache.mockapi.model.Person"
+#  private List<FieldSchema> fieldSchemas;
