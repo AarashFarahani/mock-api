@@ -81,7 +81,7 @@ public class ObjectGenerator {
         var mockGenerator = this.mockFactory.create(fieldType);
         if (mockGenerator.isPresent()) {
             var schema = findSchema(schemas, fieldName);
-            schema.put("type", type);
+            schema.putIfAbsent("type", type);
             return mockGenerator.get().generate(schema);
         } else if (type.isArray()) {
             return this.generateArray(field, field.getType().componentType(), fieldName, schemas);

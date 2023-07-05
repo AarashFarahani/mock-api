@@ -8,10 +8,24 @@ mock:
         - name: id
           schema:
             min: 1
+        - name: firstName
+          schema:
+            type: "upper"
+            min: 5
+            max: 10
         - name: lastName
           schema:
+            type: "alphabetic"
             min: 5
             max: 20
+        - name: studentNo
+          schema:
+            type: "numeric"
+            min: 10
+            max: 20
+        - name: uid
+          schema:
+            type: "uuid"
         - name: course.score
           schema:
             min: 0

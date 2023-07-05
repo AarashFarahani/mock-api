@@ -13,6 +13,8 @@ public class Student {
     private int id;
     private String firstName;
     private String lastName;
+    private String uid;
+    private String studentNo;
     private School school;
     private Course course;
     private int[] ss;

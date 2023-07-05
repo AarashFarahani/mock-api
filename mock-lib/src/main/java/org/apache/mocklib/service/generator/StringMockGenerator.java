@@ -28,7 +28,8 @@ public class StringMockGenerator  extends MockGenerator {
         functionsMap.put("alphabetic", a-> randomAlphabetic(min(a), max(a)));
         functionsMap.put("lower", a-> randomAlphabetic(min(a), max(a)).toLowerCase());
         functionsMap.put("upper", a-> randomAlphabetic(min(a), max(a)).toUpperCase());
-        functionsMap.put("alphanumeric", a-> randomNumeric(min(a), max(a)));
+        functionsMap.put("alphanumeric", a-> randomAlphanumeric(min(a), max(a)));
+        functionsMap.put("numeric", a-> randomNumeric(min(a), max(a)));
         functionsMap.put("uuid", a-> UUID.randomUUID().toString());
         functionsMap.put("any", a-> randomString(min(a), max(a)));
     }
@@ -52,19 +53,23 @@ public class StringMockGenerator  extends MockGenerator {
     @Override
     public Object generate(Map<String, Object> args) {
         var type = type(args);
-        return functionsMap.get(type).apply(args);
+        return functionsMap.getOrDefault(type, a-> randomString(min(a), max(a))).apply(args);
     }
 
     public static String randomString(int minLength, int maxLength) {
-        return RandomStringUtils.random(randomMaxLength(minLength, maxLength));
+        return RandomStringUtils.randomAscii(randomMaxLength(minLength, maxLength));
     }
 
     public static String randomAlphabetic(int minLength, int maxLength) {
         return RandomStringUtils.randomAlphabetic(randomMaxLength(minLength, maxLength));
     }
 
-    public static String randomNumeric(int minLength, int maxLength) {
+    public static String randomAlphanumeric(int minLength, int maxLength) {
         return RandomStringUtils.randomAlphanumeric(randomMaxLength(minLength, maxLength));
+    }
+
+    public static String randomNumeric(int minLength, int maxLength) {
+        return RandomStringUtils.randomNumeric(randomMaxLength(minLength, maxLength));
     }
 
     private static int randomMaxLength(int minLength, int maxLength) {
