@@ -31,7 +31,8 @@ public class ObjectGenerator {
     public <T> T generate(Class<T> clazz, FieldSchema... fieldSchemas) throws Exception {
         try {
             var object = clazz.getConstructor().newInstance();
-            for (var field : clazz.getDeclaredFields()) {
+            var fieldList = getFields(clazz, new ArrayList<>());
+            for (var field : fieldList) {
                 this.setValue(object, field, field.getName(), List.of(fieldSchemas));
             }
 
@@ -40,6 +41,15 @@ public class ObjectGenerator {
             log.error(exception.getMessage());
             throw exception;
         }
+    }
+
+    private List<Field> getFields(Class<?> clazz, List<Field> fieldList) {
+        fieldList.addAll(Arrays.stream(clazz.getDeclaredFields()).toList());
+        if (!clazz.getSuperclass().equals(Object.class)) {
+            getFields(clazz.getSuperclass(), fieldList);
+        }
+
+        return fieldList;
     }
 
     private void setValue(Object object, Field field, String fieldName, List<FieldSchema> schemas) {
@@ -101,7 +111,8 @@ public class ObjectGenerator {
             type = isArray ? type.componentType() : type;
 
             object = field.getType().getConstructor().newInstance();
-            for (var f : field.getType().getDeclaredFields()) {
+            var fieldList = getFields(type, new ArrayList<>());
+            for (var f : fieldList) {
                 if (!ReflectionUtils.isFinalOrStatic(f)) {
                     var value = this.generateValue(f, String.format("%s.%s", field, f.getName()), schemas);
                     ReflectionUtils.setValue(object, f, value);
